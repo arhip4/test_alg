@@ -4,7 +4,6 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        //Stack<String> stack = new Stack<>(2);
         Stack<Character> stack = new Stack<>(50);
         String inputString = "Привет, мир!";
 //        char[] charArr = inputString.toCharArray();
