@@ -11,13 +11,22 @@ public class Main {
 
         for (int i = 0; i < inputString.length(); i++) {
             stack.push(inputString.charAt(i));
-            // System.out.print(inputString.charAt(i) + " ");
         }
 
         for (int i = 0; i < inputString.length(); i++) {
-
             System.out.print(stack.pop());
         }
 
+        System.out.println();
+
+        Deck<Integer> deck=new Deck<>(10);
+
+        for (int i = 0; i <10 ; i++) {
+            deck.push(i);
+        }
+        for (int i = 0; i < deck.size(); i++) {
+            System.out.print(deck.pop());
+
+        }
     }
 }
