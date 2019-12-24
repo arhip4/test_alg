@@ -5,12 +5,16 @@ import java.util.Arrays;
 public class Main {
     public static void main(String[] args) {
         //Stack<String> stack = new Stack<>(2);
+
         String inputString = "Привет, мир!";
-        char [] charArr = inputString.toCharArray();
+        char[] charArr = inputString.toCharArray();
         System.out.println(Arrays.toString(charArr));
 
-        for (int i = 0;i < inputString.length(); i++){
-            System.out.print(inputString.charAt(i) + " ");
+        for (int i = 0; i < inputString.length(); i++) {
+            Stack.push(inputString.charAt(i));
+            System.out.println (Stack.pop());
+            // System.out.print(inputString.charAt(i) + " ");
         }
+
     }
 }
