@@ -5,15 +5,19 @@ import java.util.Arrays;
 public class Main {
     public static void main(String[] args) {
         //Stack<String> stack = new Stack<>(2);
-
+        Stack<Character> stack = new Stack<>(50);
         String inputString = "Привет, мир!";
-        char[] charArr = inputString.toCharArray();
-        System.out.println(Arrays.toString(charArr));
+//        char[] charArr = inputString.toCharArray();
+//        System.out.println(Arrays.toString(charArr));
 
         for (int i = 0; i < inputString.length(); i++) {
-            Stack.push(inputString.charAt(i));
-            System.out.println (Stack.pop());
+            stack.push(inputString.charAt(i));
             // System.out.print(inputString.charAt(i) + " ");
+        }
+
+        for (int i = 0; i < inputString.length(); i++) {
+
+            System.out.print(stack.pop());
         }
 
     }
