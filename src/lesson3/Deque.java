@@ -1,86 +1,113 @@
 package lesson3;
 
+import java.util.Arrays;
 import java.util.EmptyStackException;
 
 public class Deque <T>{
 
     private T[] list;
     private int size = 0;
-    private final int DEFAULT_CAPACITY = 10;
     private int begin = 0;
-
     private int end = 0;
+    private double loadFactor = 0.75;
 
-
-    public Deque(int capacity) {
-        if (capacity <= 0) {
-            throw new IllegalArgumentException("capacity: " + capacity);
-        }
-        list = (T[]) new Object[capacity];
-    }
 
     public Deque() {
-        list = (T[]) new Object[DEFAULT_CAPACITY];
+        this(10);
     }
 
-    public void insert(T value) {
-        if (isFull()) {
-            throw new StackOverflowError();
+    public Deque(int num) {
+        this(num, 0.75);
+    }
+
+    public Deque(int num, double loadFactor) {
+        setLoadFactor(loadFactor);
+        if (num > 0) {
+            list = (T[]) new Object[num];
+        } else {
+            throw new IllegalArgumentException();
         }
-        list[end] = value;
+    }
+
+    public void addRight(T value) {
         size++;
+        expand();
+        list[end] = value;
         end = nextIndex(end);
     }
 
-    public T remove() {
-        T temp = peekFront();
-        size--;
-        list[begin] = null;
-        begin = nextIndex(begin);
-        return temp;
+    public void addLeft(T value) {
+        size++;
+        expand();
+        begin = lastIndex(begin);
+        list[begin] = value;
     }
 
-    public T peekFront() {
-        if (isEmpty()) {
+    public T peekRight() {
+        if (size <= 0) {
             throw new EmptyStackException();
         }
         return list[begin];
     }
-    public void push(T value){
-        if(isFull()){
-            throw new StackOverflowError();
-        }
-        list[size] = value;
-        size++;
-    }
 
-    public T pop(){
-        T temp = peek();
-        size--;
-        list[size] = null;
-        return temp;
-    }
-
-    public T peek(){
-        if(isEmpty()){
+    public T peekLeft() {
+        if (size <= 0) {
             throw new EmptyStackException();
         }
-        return list[size-1];
+        return list[lastIndex(end)];
     }
+
+    public T removeRight() {
+        T value = peekRight();
+        size--;
+        list[begin] = null;
+        begin = nextIndex(begin);
+        return value;
+    }
+
+    public T removeLeft() {
+        T value = peekLeft();
+        size--;
+        end = lastIndex(end);
+        list[end] = null;
+        return value;
+    }
+
     private int nextIndex(int index) {
         return (index + 1) % list.length;
     }
 
-    public boolean isFull() {
-        return size == list.length;
+    private int lastIndex(int index) {
+        return (list.length + index - 1) % list.length;
     }
 
-    public boolean isEmpty() {
-        return size == 0;
+    public void info() {
+        System.out.print(Arrays.toString(list));
+        System.out.printf("begin: %d end: %d size %d \n", begin, end, size);
     }
 
-    public int size() {
-        return size;
+
+    private final void setLoadFactor(double loadFactor) {
+        if (loadFactor > 0 && loadFactor < 1) {
+            this.loadFactor = loadFactor;
+        }
     }
+
+    private void expand() {
+        if ((double) size / list.length > loadFactor) {
+            T[] tempArr = (T[]) new Object[list.length * 2];
+            if (begin <= end) {
+                System.arraycopy(list, 0, tempArr, 0, list.length);
+            } else {
+                System.arraycopy(list, 0, tempArr, 0, end);
+                int newBegin = tempArr.length - list.length + begin;
+                System.arraycopy(list, begin, tempArr, newBegin, list.length - begin);
+                begin = newBegin;
+            }
+            list = tempArr;
+        }
+    }
+
+
 
 }
