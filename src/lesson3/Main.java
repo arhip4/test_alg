@@ -19,10 +19,10 @@ public class Main {
 
         System.out.println();
 
-        Deck<Integer> deck=new Deck<>(10);
+        Deque<Integer> deck = new Deque<>(10);
 
-        for (int i = 0; i <10 ; i++) {
-            deck.push(i);
+        for (int i = 0; i < 10; i++) {
+            deck.insert(i);
         }
         for (int i = 0; i < deck.size(); i++) {
             System.out.print(deck.pop());

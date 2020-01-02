@@ -2,7 +2,7 @@ package lesson3;
 
 import java.util.EmptyStackException;
 
-public class Deck <T>{
+public class Deque <T>{
 
     private T[] list;
     private int size = 0;
@@ -12,14 +12,14 @@ public class Deck <T>{
     private int end = 0;
 
 
-    public Deck(int capacity) {
+    public Deque(int capacity) {
         if (capacity <= 0) {
             throw new IllegalArgumentException("capacity: " + capacity);
         }
         list = (T[]) new Object[capacity];
     }
 
-    public Deck() {
+    public Deque() {
         list = (T[]) new Object[DEFAULT_CAPACITY];
     }
 
